@@ -494,7 +494,7 @@ class PaySto extends ModulePPM
      * @param $x_currency_code
      * @return false|string
      */
-    private function get_x_fp_hash($x_login, $x_fp_sequence, $x_fp_timestamp, $x_amount, $x_currency_code)
+    public function get_x_fp_hash($x_login, $x_fp_sequence, $x_fp_timestamp, $x_amount, $x_currency_code)
     {
         $arr = array($x_login, $x_fp_sequence, $x_fp_timestamp, $x_amount, $x_currency_code);
         $str = implode('^', $arr);
@@ -508,9 +508,48 @@ class PaySto extends ModulePPM
      * @param $x_amount
      * @return string
      */
-    private function get_x_MD5_Hash($x_login, $x_trans_id, $x_amount)
+    public function get_x_MD5_Hash($x_login, $x_trans_id, $x_amount)
     {
         return md5(ConfPPM::getConf('paysto_secret') . $x_login . $x_trans_id . $x_amount);
+    }
+    
+    /**
+     * Check if IP in acceptable IPs list
+     * @return bool
+     */
+    public function checkInServerList()
+    {
+        $serverList = preg_split('/\r\n|[\r\n]/', ConfPPM::getConf('server_list'));
+        $myIP = array();
+        $myIP[] = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : '127.0.0.1';
+        $myIP[] = isset($_SERVER['HTTP_CF_CONNECTING_IP']) ? $_SERVER['HTTP_CF_CONNECTING_IP'] : '127.0.0.1';
+        $myIP[] = isset($_SERVER['HTTP_X_REAL_IP']) ? $_SERVER['HTTP_X_REAL_IP'] : '127.0.0.1';
+        $myIP[] = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+        $myIP[] = isset($_SERVER['GEOIP_ADDR']) ? $_SERVER['GEOIP_ADDR'] : '127.0.0.1';
+        if (empty(array_intersect($serverList, $myIP))) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    /**
+     * Logger function for debug
+     * @param  [type] $var  [description]
+     * @param  string $text [description]
+     * @return [type]       [description]
+     */
+    public function logger($var, $text = '')
+    {
+        // file name
+        $loggerFile = __DIR__ . '/logger.log';
+        if (is_object($var) || is_array($var)) {
+            $var = (string)print_r($var, true);
+        } else {
+            $var = (string)$var;
+        }
+        $string = date("Y-m-d H:i:s") . " - " . $text . ' - ' . $var . "\n";
+        file_put_contents($loggerFile, $string, FILE_APPEND);
     }
     
     /**
