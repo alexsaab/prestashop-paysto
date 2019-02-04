@@ -590,6 +590,17 @@ class PaySto extends ModulePPM
     }
     
     /**
+     * Redirect methods
+     * @param $url
+     * @param bool $permanent
+     */
+    public function redirect($url, $permanent = false)
+    {
+        header('Location: ' . $url, true, $permanent ? 301 : 302);
+        exit();
+    }
+    
+    /**
      * Display header hook
      */
     public function hookDisplayHeader()

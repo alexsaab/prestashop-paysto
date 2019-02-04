@@ -31,7 +31,7 @@ class PayStoSuccessModuleFrontController extends ModuleFrontControllerPPM
 
     public function postProcess()
     {
-        $id_order = Tools::getValue('LMI_PAYMENT_NO');
+        $id_order = Tools::getValue('x_invoice_num');
 
         if (!$id_order) {
             Tools::redirect('index.php?controller=order&step=1');
@@ -50,8 +50,8 @@ class PayStoSuccessModuleFrontController extends ModuleFrontControllerPPM
             Tools::redirect('index.php?controller=order&step=1');
         }
 
-        if (Tools::getValue('LMI_PAYMENT_NO')
-            && Tools::getValue('LMI_MERCHANT_ID') == ConfPPM::getConf('paysto_merchant_id')) {
+        if (Tools::getValue('x_invoice_num')
+            && Tools::getValue('x_login') == ConfPPM::getConf('paysto_merchant_id')) {
             Tools::redirectLink(
                 $this->context->link->getPageLink(
                     'order-confirmation',

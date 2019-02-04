@@ -30,35 +30,22 @@ class PayStoResultModuleFrontController extends ModuleFrontControllerPPM
     {
         $server = &${'_SERVER'};
         if ($server['REQUEST_METHOD'] == 'POST') {
-            $id_order = Tools::getValue('LMI_PAYMENT_NO');
-
-            $amount = Tools::getValue('LMI_PAYMENT_AMOUNT');
-            if (Tools::getValue('LMI_PREREQUEST') == '1'
-                || Tools::getValue('LMI_PREREQUEST') == '2') {
-                $order = new Order($id_order);
-                if (Validate::isLoadedObject($order)) {
-                    $cart = new Cart($order->id_cart);
-                    $amount_order = number_format(
-                        $this->module->getTotalCart($cart),
-                        2,
-                        '.',
-                        ''
-                    );
-
-                    if ($amount_order == $amount) {
-                        echo 'YES';
-                    }
-                }
-
-                die();
+            $id_order = Tools::getValue('x_invoice_num');
+            $x_amount = Tools::getValue('x_amount');
+            $x_login = ConfPPM::getConf('paysto_secret');
+            $x_trans_id = Tools::getValue('x_trans_id');
+            $generated_x_MD5_Hash = $this->module->get_x_MD5_Hash($x_login, $x_trans_id, $x_amount);
+            $x_response_code = Tools::getValue('x_response_code');
+            $ip_only_from_server_list = ConfPPM::getConf('ip_only_from_server_list');
+            $order = new Order($id_order);
+            $success_url =  Tools::getHttpHost(false).__PS_BASE_URI__.'/module/paysto/success';
+            $fail_url =  Tools::getHttpHost(false).__PS_BASE_URI__.'/module/paysto/fail';
+            
+            if ($ip_only_from_server_list && !$this->module->checkInServerList()
+                && ($order->getCurrentState() != Configuration::get('PS_OS_PAYMENT'))) {
+                    $this->module->redirect($fail_url);
             } else {
-                $hash = $this->module->getHash($id_order);
-                $sign = $this->module->getSign(Tools::getValue('LMI_PAYMENT_NO'),
-                    Tools::getValue('LMI_PAID_AMOUNT'), Tools::getValue('LMI_CURRENCY'),
-                    Tools::getValue('LMI_MERCHANT_ID'), ConfPPM::getConf('paysto_secret'));
-
-                if ((Tools::getValue('LMI_HASH') == $hash) && (Tools::getValue('SIGN') == $sign)) {
-                    $order = new Order($id_order);
+                if ($x_response_code == 1 && $order->getCurrentState() != Configuration::get('PS_OS_PAYMENT')) {
                     if (Validate::isLoadedObject($order)) {
                         $order->setCurrentState(Configuration::get('PS_OS_PAYMENT'));
                         PaymentTransaction::createTransaction($order->id, Tools::getValue('LMI_SYS_PAYMENT_ID'));
@@ -66,10 +53,10 @@ class PayStoResultModuleFrontController extends ModuleFrontControllerPPM
                         die();
                     }
                 } else {
-                    die();
+                    $this->module->redirect($success_url);
                 }
             }
         }
-        die();
+        $this->module->redirect($fail_url);
     }
 }
