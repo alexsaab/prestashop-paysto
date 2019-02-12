@@ -314,7 +314,6 @@ class PaySto extends ModulePPM
     {
     
         $x_fp_timestamp = time();
-        
         $order = new Order($id_order);
         $cart = new Cart($order->id_cart);
         
@@ -322,7 +321,7 @@ class PaySto extends ModulePPM
         $order_id = $order->id;
         $description = $this->l('Payment order ') . ' №' . $order_id;
         $paysto_merchant_id = ConfPPM::getConf('paysto_merchant_id');
-        $x_relay_url = Tools::getHttpHost(false).__PS_BASE_URI__.'/module/paysto/result';
+        $x_relay_url = $_SERVER['HTTP_ORIGIN'].__PS_BASE_URI__.'module/paysto/result';
         
         $order_amount = number_format(($order->total_products_wt + $order->total_shipping_tax_incl), 2, '.', '');
         
@@ -423,7 +422,6 @@ class PaySto extends ModulePPM
                 }
     
                 $lineArr = array();
-                $productObject = wc_get_product($product->get_product_id());
                 $lineArr[] = '№' . $pos . "  ";
                 $lineArr[] = substr($product['id_product'], 0, 30);
                 $lineArr[] = substr($product['name'], 0, 254);
@@ -445,7 +443,6 @@ class PaySto extends ModulePPM
                 $lineArr[] = $tax_value_shipping;
                 $params['x_line_item'] .= implode('<|>', $lineArr) . "0<|>\n";
             }
-            
         }
         
         return ['url' => $this->url, 'params' => $params];
