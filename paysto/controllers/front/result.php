@@ -38,9 +38,8 @@ class PayStoResultModuleFrontController extends ModuleFrontControllerPPM
             $x_response_code = Tools::getValue('x_response_code');
             $ip_only_from_server_list = ConfPPM::getConf('ip_only_from_server_list');
             $order = new Order($id_order);
-            $success_url =  Tools::getHttpHost(false).__PS_BASE_URI__.'/module/paysto/success';
-            $fail_url =  Tools::getHttpHost(false).__PS_BASE_URI__.'/module/paysto/fail';
-            
+            $success_url =  '/module/paysto/success';
+            $fail_url =  '/module/paysto/fail';
             if ($ip_only_from_server_list && !$this->module->checkInServerList()
                 && ($order->getCurrentState() != Configuration::get('PS_OS_PAYMENT'))) {
                     $this->module->redirect($fail_url);

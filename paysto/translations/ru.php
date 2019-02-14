@@ -55,3 +55,6 @@ $_MODULE['<{paysto}prestashop>payment_return_c060ca8505d0aa094635fbf9beac94b0'] 
 $_MODULE['<{paysto}prestashop>payment_return_aec9b5b1c2f91ccdef8e25f5f1dac86a'] = 'Скачать продукт';
 $_MODULE['<{paysto}prestashop>payment_return_bdfc17518230ef28d5ceb28885b67c26'] = 'Проблема была выявлена в вашем заказе. Если вы считаете, что это ошибка, пожалуйста';
 $_MODULE['<{paysto}prestashop>payment_return_0b3b97fa66886c5688ee4ae80ec0c3c2'] = 'нам';
+$_MODULE['<{paysto}prestashop>payment_return_79973dad921e21ce1cdb7d0e6d8296a4'] = 'Принимать обратные вызовы только с установленных IP';
+$_MODULE['<{paysto}prestashop>payment_return_2efd7c95a30d430a51ea8edead0f3463'] = 'Список IP серверов';
+

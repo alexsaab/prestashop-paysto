@@ -267,12 +267,12 @@ class PaySto extends ModulePPM
             'text'
         );
         $form->addField(
-            $this->l('Receive callback only from servers list?'),
+            $this->l('Receive callback only from servers list'),
             ConfPPM::formatConfName('ip_only_from_server_list'),
             'switch'
         );
         $form->addField(
-            $this->l('Server list?'),
+            $this->l('Server list'),
             ConfPPM::formatConfName('server_list'),
             'textarea'
         );
