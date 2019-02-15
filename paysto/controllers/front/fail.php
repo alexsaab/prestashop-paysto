@@ -35,7 +35,6 @@ class PayStoFailModuleFrontController extends ModuleFrontControllerPPM
         if (Tools::getValue('x_login')
             && Tools::getValue('x_login') == ConfPPM::getConf('paysto_merchant_id')) {
             $order = new Order(Tools::getValue('x_invoice_num'));
-            
             if (Validate::isLoadedObject($order)) {
                 $link_payment_again = false;
                 if (Validate::isLoadedObject($order)) {
@@ -58,7 +57,9 @@ class PayStoFailModuleFrontController extends ModuleFrontControllerPPM
                 Tools::redirect($this->context->link->getPageLink('index'));
             }
         } else {
-            die();
+            $this->context->smarty->assign('link_payment_again','/');
+            $this->context->smarty->assign('path', $this->module->l('fail', 'fail'));
+            $this->setTemplate('fail.tpl');
         }
     }
 }

@@ -19,6 +19,8 @@ $_MODULE['<{paysto}prestashop>paysto_ea9cf7e47ff33b2be14e6dd07cbcefc6'] = 'До�
 $_MODULE['<{paysto}prestashop>paysto_ba794350deb07c0c96fe73bd12239059'] = 'Упаковка';
 $_MODULE['<{paysto}prestashop>paysto_4cb395ffcdbbffc0fe0608488896c121'] = 'Платить с PaySto';
 $_MODULE['<{paysto}prestashop>paysto_e393ac4e363b82f670e87d907cf5f3a9'] = 'Успешно сохранено!';
+$_MODULE['<{paysto}prestashop>paysto_79973dad921e21ce1cdb7d0e6d8296a4'] = 'Принимать обратные вызовы только с установленных IP';
+$_MODULE['<{paysto}prestashop>paysto_2efd7c95a30d430a51ea8edead0f3463'] = 'Список IP серверов';
 $_MODULE['<{paysto}prestashop>formbuilderppm_00d23a76e43b46dae9ec7aa9dcbebb32'] = 'Включен';
 $_MODULE['<{paysto}prestashop>formbuilderppm_b9f5c797ebbf55adccdd8539a65a0241'] = 'Отключен';
 $_MODULE['<{paysto}prestashop>toolsmoduleppm_8d681c177078f32c0f5b7c1b684ba463'] = 'Допустимый размер памяти';
@@ -55,6 +57,4 @@ $_MODULE['<{paysto}prestashop>payment_return_c060ca8505d0aa094635fbf9beac94b0'] 
 $_MODULE['<{paysto}prestashop>payment_return_aec9b5b1c2f91ccdef8e25f5f1dac86a'] = 'Скачать продукт';
 $_MODULE['<{paysto}prestashop>payment_return_bdfc17518230ef28d5ceb28885b67c26'] = 'Проблема была выявлена в вашем заказе. Если вы считаете, что это ошибка, пожалуйста';
 $_MODULE['<{paysto}prestashop>payment_return_0b3b97fa66886c5688ee4ae80ec0c3c2'] = 'нам';
-$_MODULE['<{paysto}prestashop>payment_return_79973dad921e21ce1cdb7d0e6d8296a4'] = 'Принимать обратные вызовы только с установленных IP';
-$_MODULE['<{paysto}prestashop>payment_return_2efd7c95a30d430a51ea8edead0f3463'] = 'Список IP серверов';
 
