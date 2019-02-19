@@ -38,6 +38,7 @@ class PayStoResultModuleFrontController extends ModuleFrontControllerPPM
             $x_response_code = Tools::getValue('x_response_code');
             $ip_only_from_server_list = ConfPPM::getConf('ip_only_from_server_list');
             $order = new Order($id_order);
+            $my_orders = '/order-history';
             $success_url =  '/module/paysto/success';
             $fail_url =  '/module/paysto/fail';
             if ($ip_only_from_server_list && !$this->module->checkInServerList()
@@ -52,10 +53,19 @@ class PayStoResultModuleFrontController extends ModuleFrontControllerPPM
                         die();
                     }
                 } else {
-                    $this->module->redirect($success_url);
+                    if ((bool)$this->context->customer->isLogged()) {
+                        $this->module->redirect($my_orders);
+                    } else {
+                        $this->module->redirect($success_url);
+                    }
+                    
                 }
             }
         }
-        $this->module->redirect($fail_url);
+        if ((bool)$this->context->customer->isLogged()) {
+            $this->module->redirect($my_orders);
+        } else {
+            $this->module->redirect($fail_url);
+        }
     }
 }

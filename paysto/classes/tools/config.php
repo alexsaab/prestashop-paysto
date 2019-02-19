@@ -25,6 +25,6 @@
  */
 
 if (!class_exists('AutoloaderPPM')) {
-    require_once(dirname(__FILE__).'/AutoloaderPPM.php');
+    require_once(dirname(__FILE__) . '/AutoloaderPPM.php');
     AutoloaderPPM::create(dirname(__FILE__).'/../');
 }
