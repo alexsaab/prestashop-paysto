@@ -31,6 +31,10 @@ class PayStoFailModuleFrontController extends ModuleFrontControllerPPM
     
     public function initContent()
     {
+        $my_orders = '/order-history';
+        if ((bool)$this->context->customer->isLogged()) {
+            $this->module->redirect($my_orders);
+        }
         parent::initContent();
         if (Tools::getValue('x_login')
             && Tools::getValue('x_login') == ConfPPM::getConf('paysto_merchant_id')) {
