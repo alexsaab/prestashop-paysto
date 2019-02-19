@@ -321,7 +321,7 @@ class PaySto extends ModulePPM
         $order_id = $order->id;
         $description = $this->l('Payment order ') . ' №' . $order_id;
         $paysto_merchant_id = ConfPPM::getConf('paysto_merchant_id');
-        $x_relay_url = $_SERVER['HTTP_ORIGIN'].__PS_BASE_URI__.'module/paysto/result';
+        $x_relay_url = _PS_BASE_URL_.__PS_BASE_URI__.'module/paysto/result';
         
         $order_amount = number_format(($order->total_products_wt + $order->total_shipping_tax_incl), 2, '.', '');
         
