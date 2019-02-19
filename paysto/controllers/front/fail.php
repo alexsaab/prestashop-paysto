@@ -32,8 +32,11 @@ class PayStoFailModuleFrontController extends ModuleFrontControllerPPM
     public function initContent()
     {
         $my_orders = '/order-history';
+        $guest_tracking = '/guest-tracking';
         if ((bool)$this->context->customer->isLogged()) {
             $this->module->redirect($my_orders);
+        } else {
+            $this->module->redirect($guest_tracking);
         }
         parent::initContent();
         if (Tools::getValue('x_login')
